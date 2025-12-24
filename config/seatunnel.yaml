@@ -1,0 +1,9 @@
+seatunnel:
+  engine:
+    http:
+      enable-http: true
+      port: 8080
+      context-path: /seatunnel
+      enable-basic-auth: true
+      basic-auth-username: "uid"
+      basic-auth-password: "pwd"
