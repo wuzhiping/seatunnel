@@ -17,6 +17,19 @@ SELECT pg_reload_conf();
 <pre>
 ALTER TABLE your_table_name REPLICA IDENTITY FULL;
 </pre>
+* wiki example
+<pre>
+psql -U wikiuser -d wiki
+\l
+\dn
+\dt wiki.*
+\d+ wiki.page
+
+ALTER SYSTEM SET wal_level TO 'logical';
+SELECT pg_reload_conf();
+  
+ALTER TABLE wiki.page REPLICA IDENTITY FULL;
+</pre>
 
 # postgresql CDC
 * https://seatunnel.apache.org/zh-CN/docs/connector-v2/source/PostgreSQL-CDC/
