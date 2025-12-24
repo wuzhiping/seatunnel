@@ -1,0 +1,27 @@
+env {
+  # You can set SeaTunnel environment configuration here
+  parallelism = 2
+  job.mode = "STREAMING"
+  checkpoint.interval = 10000
+}
+
+source {
+  FakeSource {
+    parallelism = 2
+    plugin_output = "fake"
+    row.num = 1000
+    rate.limit = 100
+    loop = true
+    schema = {
+      fields {
+        name = "string"
+        age = "int"
+      }
+    }
+  }
+}
+
+sink {
+  Console {
+  }
+}
