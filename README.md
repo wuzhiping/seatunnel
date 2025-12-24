@@ -1,7 +1,7 @@
 # seatunnel
 https://seatunnel.apache.org/docs/start-v2/docker/
 
-./bin/seatunnel.sh -DJvmOption="-Xms4G -Xmx4G" -m local -c ./config/fake.streaming.loop.config.template
+./bin/seatunnel.sh -DJvmOption="-Xms4G -Xmx4G" -m local -c ./config/v2.streaming.conf.template
 
 docker run --rm -it --network mediawiki_default  -p 15031:8080 apache/seatunnel bash
 
