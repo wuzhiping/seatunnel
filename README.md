@@ -3,6 +3,8 @@ https://seatunnel.apache.org/docs/start-v2/docker/
 
 ./bin/seatunnel.sh -DJvmOption="-Xms4G -Xmx4G" -m local -c ./config/fake.streaming.loop.config.template
 
+docker run --rm -it --network mediawiki_default  -p 15031:8080 apache/seatunnel bash
+
 # 对于 SeaTunnel Zeta 引擎
 您需要确保 jdbc 驱动 jar 包 已放置在目录 ${SEATUNNEL_HOME}/lib/ 中。
 请下载并将 PostgreSQL 驱动放入 ${SEATUNNEL_HOME}/lib/ 目录。例如：cp postgresql-xxx.jar $SEATUNNEL_HOME/lib/
