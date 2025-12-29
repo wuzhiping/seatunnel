@@ -72,3 +72,14 @@ sink {
   }
 }
 </pre>
+<pre>
+CREATE OR REPLACE VIEW mediawiki.page_cdc AS
+SELECT
+    id,
+    title,
+    content,
+    titlevector::text AS titlevector_text,
+    other_column1,
+    other_column2
+FROM mediawiki.page;  
+</pre>
