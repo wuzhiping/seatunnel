@@ -39,3 +39,36 @@ ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 * https://seatunnel.apache.org/zh-CN/docs/connector-v2/source/PostgreSQL-CDC/
 * https://www.postgresql.org/docs/current/runtime-config-replication.html
 * https://blog.csdn.net/gitblog_00090/article/details/151701324
+<pre>
+env {
+  parallelism = 2
+  job.mode = "STREAMING"
+  checkpoint.interval = 5000
+}
+
+source {
+  Postgres-CDC {
+    plugin_output = "wiki_cdc"
+    username = "wikiuser"
+    password = "wikipass"
+    database-names = ["wiki"]
+    schema-names = ["mediawiki"]
+    table-names = ["wiki.mediawiki.job"]
+    #exclude-columns = ["titlevector"]
+    #startup-mode = "initial"
+    #debezium.slot.drop.on.stop = true
+    url = "jdbc:postgresql://db:5432/wiki?loggerLevel=TRACE"
+  }
+}
+
+sink {
+  Console {
+    plugin_input = "wiki_cdc"
+  }
+
+  Http {
+    plugin_input = "wiki_cdc"
+    url = "https://abc.feg.com.tw/oauth2/wiki"
+  }
+}
+</pre>
