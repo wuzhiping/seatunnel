@@ -53,7 +53,7 @@ source {
     password = "wikipass"
     database-names = ["wiki"]
     schema-names = ["mediawiki"]
-    table-names = ["wiki.mediawiki.job"]
+    table-names = ["wiki.mediawiki.page_cdc"]
     #exclude-columns = ["titlevector"]
     #startup-mode = "initial"
     #debezium.slot.drop.on.stop = true
