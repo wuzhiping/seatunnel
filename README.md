@@ -68,11 +68,26 @@ source {
     password = "wikipass"
     database-names = ["wiki"]
     schema-names = ["mediawiki"]
-    table-names = ["wiki.mediawiki.page_cdc"]
-    #exclude-columns = ["titlevector"]
-    #startup-mode = "initial"
-    #debezium.slot.drop.on.stop = true
+    table-names = ["wiki.mediawiki.orders"]
     url = "jdbc:postgresql://db:5432/wiki?loggerLevel=TRACE"
+
+    # 关键修改：避免每次从头 snapshot
+    startup.mode = "earliest"
+
+  }
+}
+
+transform {
+  Metadata {
+    plugin_input = "wiki_cdc"
+    metadata_fields {
+        Database = _database_
+        Table = _table_
+        RowKind = _rowKind_
+        EventTime = _ts_ms_
+        Delay = _delay_
+    }
+    plugin_output = "wiki_cdc_meta"
   }
 }
 
@@ -82,10 +97,11 @@ sink {
   }
 
   Http {
-    plugin_input = "wiki_cdc"
+    plugin_input = "wiki_cdc_meta"
     url = "https://abc.feg.com.tw/oauth2/wiki"
   }
 }
+
 </pre>
 
 <pre>
