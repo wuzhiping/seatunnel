@@ -100,6 +100,23 @@ sink {
     plugin_input = "wiki_cdc_meta"
     url = "https://abc.feg.com.tw/oauth2/wiki"
   }
+
+  Kafka {
+    plugin_input = "wiki_cdc_meta"
+    bootstrap.servers = "broker:9092"               # 多节点用逗号分隔
+    topic = "seatunnel_prod"
+    format = json
+    semantic = exactly-once
+
+    kafka.config = {
+      acks = "all"                                  # 确保消息被所有副本确认
+      enable.idempotence = true                      # 幂等生产
+      retries = 10                                   # 重试次数
+      max.in.flight.requests.per.connection = 5     # 保证事务安全
+      linger.ms = 20                                 # 批量发送优化
+    }
+  }
+  
 }
 
 </pre>
