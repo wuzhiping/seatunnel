@@ -79,8 +79,10 @@ ORDER BY schemaname, tablename;
       KAFKA_NUM_PARTITIONS: 3
 
   
-/opt/kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092
-/opt/kafka/bin/kafka-console-consumer.sh  --bootstrap-server broker:9092 --topic seatunnel_prod   --from-beginning
+  /opt/kafka/bin
+./kafka-topics.sh --list --bootstrap-server broker:9092
+./kafka-console-consumer.sh --bootstrap-server broker:9092 --topic seatunnel_prod --from-beginning
+  
 </pre>
 
 # postgresql CDC
