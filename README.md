@@ -31,7 +31,7 @@ psql -U wikiuser -d wiki
 
 ALTER SYSTEM SET wal_level TO 'logical';
 SELECT pg_reload_conf();
-  
+#restart pg
 ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 </pre>
 
@@ -154,16 +154,4 @@ sink {
   
 }
 
-</pre>
-
-<pre>
-CREATE OR REPLACE VIEW mediawiki.page_cdc AS
-SELECT
-    id,
-    title,
-    content,
-    titlevector::text AS titlevector_text,
-    other_column1,
-    other_column2
-FROM mediawiki.page;  
 </pre>
