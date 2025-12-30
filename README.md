@@ -50,6 +50,39 @@ WHERE pubname = 'dbz_publication'
 ORDER BY schemaname, tablename;
 </pre>
 
+# kafka broker
+<pre>
+
+  broker:
+    image: apache/kafka:4.0.0
+    container_name: broker
+    hostname: broker
+    volumes:
+      - ./kafka:/tmp/kraft-combined-logs
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@broker:9093
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+
+  
+/opt/kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092
+/opt/kafka/bin/kafka-console-consumer.sh  --bootstrap-server broker:9092 --topic seatunnel_prod   --from-beginning
+</pre>
+
 # postgresql CDC
 * https://seatunnel.apache.org/zh-CN/docs/connector-v2/source/PostgreSQL-CDC/
 * https://www.postgresql.org/docs/current/runtime-config-replication.html
