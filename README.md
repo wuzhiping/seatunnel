@@ -35,6 +35,21 @@ SELECT pg_reload_conf();
 ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 </pre>
 
+# publication
+<pre>
+SELECT * FROM pg_publication;
+DROP PUBLICATION dbz_publication;
+CREATE PUBLICATION dbz_publication FOR  TABLE wiki.mediawiki.orders;
+ ALTER PUBLICATION dbz_publication ADD  TABLE wiki.mediawiki.job;
+ ALTER PUBLICATION dbz_publication DROP TABLE wiki.mediawiki.job;
+
+
+SELECT schemaname, tablename
+FROM pg_publication_tables
+WHERE pubname = 'dbz_publication'
+ORDER BY schemaname, tablename;
+</pre>
+
 # postgresql CDC
 * https://seatunnel.apache.org/zh-CN/docs/connector-v2/source/PostgreSQL-CDC/
 * https://www.postgresql.org/docs/current/runtime-config-replication.html
@@ -72,6 +87,7 @@ sink {
   }
 }
 </pre>
+
 <pre>
 CREATE OR REPLACE VIEW mediawiki.page_cdc AS
 SELECT
