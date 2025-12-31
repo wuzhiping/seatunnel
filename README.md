@@ -7,6 +7,10 @@ docker run --rm -it --network mediawiki_default  -p 15031:8080 apache/seatunnel 
 
 mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar.bak
 
+![etl](https://github.com/user-attachments/assets/60ac41b0-c39e-4511-8d5e-1998f0cdf7e0)
+
+![sbpb](https://github.com/user-attachments/assets/2bbd8d80-14d9-4edc-864a-f98884443d77)
+
 # 对于 SeaTunnel Zeta 引擎
 您需要确保 jdbc 驱动 jar 包 已放置在目录 ${SEATUNNEL_HOME}/lib/ 中。
 请下载并将 PostgreSQL 驱动放入 ${SEATUNNEL_HOME}/lib/ 目录。例如：cp postgresql-xxx.jar $SEATUNNEL_HOME/lib/
