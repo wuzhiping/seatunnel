@@ -39,7 +39,7 @@ SELECT pg_reload_conf();
 ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 </pre>
 
-# publication
+# publication 由 DBA 创建 publication，CDC 用户只负责订阅。
 <pre>
 SELECT * FROM pg_publication;
 DROP PUBLICATION dbz_publication;
