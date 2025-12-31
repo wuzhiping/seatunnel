@@ -227,3 +227,85 @@ print("Status Code:", response.status_code)
 print("Response Body:", response.text)
 
 </pre>
+
+* config vs json
+<pre>
+ env {
+  parallelism = 2
+  job.mode = "STREAMING"
+  checkpoint.interval = 20000
+}
+
+source {
+  Postgres-CDC {
+    plugin_output = "fake"
+    username = "postgres"
+    password = "postgres"
+    database-names = ["postgres_cdc"]
+    schema-names = ["public"]
+    table-names = ["postgres_cdc.public.orders"]
+    url = "jdbc:postgresql://10.17.1.22:5432/postgres_cdc"
+  }
+}
+
+transform {
+  Sql {
+    plugin_input = "fake"
+    plugin_output = "fake1"
+    query = "select id, concat(name, '___') as name, age+1 as age from xxx"
+  }
+}
+
+sink {
+  Redis {
+    plugin_input = "fake1"
+    host = 10.17.1.22
+    port = 6379
+    key = "pg_cdc:{id}"
+    data_type = key
+    support_custom_key = true
+  }
+}
+</pre>
+<pre>
+curl -X POST "http://10.17.1.26:15060/submit-job" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "env": {
+      "parallelism": 2,
+      "job.mode": "STREAMING",
+      "checkpoint.interval": 20000
+    },
+    "source": [
+        {
+          "plugin_name": "Postgres-CDC",
+          "plugin_output": "fake",
+          "username": "postgres",
+          "password": "postgres",
+          "database-names": ["postgres_cdc"],
+          "schema-names": ["public"],
+          "table-names": ["postgres_cdc.public.orders"],
+          "url": "jdbc:postgresql://10.17.1.22:5432/postgres_cdc"
+        }
+    ],
+    "transform": [
+        {
+          "plugin_name": "Sql",
+          "plugin_input": "fake",
+          "plugin_output": "fake1",
+          "query": "select id, name, age+11 as age from xxx"
+        }
+    ],
+    "sink": [
+        {
+          "plugin_name": "Redis",
+          "plugin_input": "fake1",
+          "host": "10.17.1.22",
+          "port": 6379,
+          "key": "pg_cdc:{id}",
+          "data_type": "key",
+          "support_custom_key": true
+        }
+    ]
+}'
+</pre>
