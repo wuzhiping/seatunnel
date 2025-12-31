@@ -155,3 +155,75 @@ sink {
 }
 
 </pre>
+
+# [API](https://seatunnel.apache.org/zh-CN/docs/2.3.12/seatunnel-engine/rest-api-v2/)
+* submit-job
+<pre>
+import requests
+import json
+
+url = f"http://10.17.1.26:15060/submit-job?jobId=&jobName=FAKE"
+
+payload = {
+    "env": {
+        "parallelism": 2,
+        "job.mode": "STREAMING",
+        "checkpoint.interval": 10000
+    },
+    "source": [
+        {
+            "plugin_name": "FakeSource",
+            "plugin_output": "fake",
+            "row.num": 10,
+            "schema": {
+                "fields": {
+                    "name": "string",
+                    "age": "int",
+                    "card": "int"
+                }
+            }
+        }
+    ],
+    "transform": [],
+    "sink": [
+        {
+            "plugin_name": "Console",
+            "plugin_input": ["fake"]
+        }
+    ]
+}
+
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+
+print("Status Code:", response.status_code)
+print("Response Body:", response.text)
+
+</pre>
+
+* stop-job
+<pre>
+jobId = response.json()["jobId"]
+jobId = "1058644825752469505"
+import requests
+import json
+
+url = "http://10.17.1.26:15060/stop-job"
+
+payload = {
+    "jobId": jobId
+}
+
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+
+print("Status Code:", response.status_code)
+print("Response Body:", response.text)
+
+</pre>
