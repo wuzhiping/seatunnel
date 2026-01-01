@@ -41,9 +41,13 @@ ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 
 # REPLICA slot
 <pre>
+ 查看磁盘占用
  select pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_insert_lsn(),restart_lsn)) 
        AS wal_delay ,
        * from pg_catalog.pg_replication_slots ;
+
+ 删除
+ select * from pg_drop_replication_slot('my_slot');
 </pre>
 
 # publication 由 DBA 创建 publication，CDC 用户只负责订阅。
