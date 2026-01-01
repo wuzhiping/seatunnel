@@ -6,6 +6,11 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    environment:
+      ST_LOG_DIR: /opt/seatunnel/logs
+      SEATUNNEL_HOME: /opt/seatunnel
+      SEATUNNEL_LOGS_FILE_NAME: seatunnel
+      SEATUNNEL_LOGS_PATH: /opt/seatunnel/logs  
     volumes:
       # 核心目录持久化
       - ./logs:/opt/seatunnel/logs
@@ -15,6 +20,8 @@ services:
       # 可选：单文件精准挂载
       #- ./hazelcast.yaml:/opt/seatunnel/config/hazelcast.yaml:ro
       #- ./seatunnel.yaml:/opt/seatunnel/config/seatunnel.yaml:ro
+      
+      - ./log4j2.properties:/opt/seatunnel/config/log4j2.properties
     command: bash -c "./bin/seatunnel-cluster.sh && tail -f /dev/null"
     stdin_open: true
     tty: true
