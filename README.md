@@ -42,7 +42,8 @@ ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 # 逻辑复制
 <pre>
 前提,pg1 FDB     pg2 TDB有同样的tb1，tb2表结构
-
+    无主键，或者serial类型的 tb2需要  ALTER TABLE public.tb2 REPLICA IDENTITY FULL;
+ 
 发布
 create publication my_pub for table public.tb1;
 -- 加表
