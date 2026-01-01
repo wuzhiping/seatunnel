@@ -39,6 +39,25 @@ SELECT pg_reload_conf();
 ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 </pre>
 
+# 逻辑复制
+<pre>
+前提,pg1 FDB     pg2 TDB有同样的tb1，tb2表结构
+
+发布
+create publication my_pub for table public.tb1;
+-- 加表
+alter publication my_pub add table public.tb2;
+-- 减表
+alter publication my_pub drop table tb2;
+-- 删除
+drop publication if exists my_pub;
+ 
+订阅
+create subscription my_sub_slot connection 'host=pg1 port=5432 dbname=FDB user=postgres password=postgres' publication my_pub
+-- 查看订阅进度
+SELECT * FROM pg_stat_subscription;
+</pre>
+
 # REPLICA slot
 <pre>
  查看磁盘占用
