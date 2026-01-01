@@ -1,4 +1,4 @@
-<img width="2152" height="1040" alt="image" src="https://github.com/user-attachments/assets/3a93be2f-5bcc-4986-8fb0-0e0381e15f64" /># seatunnel
+# seatunnel
 https://seatunnel.apache.org/docs/start-v2/docker/
 
 ./bin/seatunnel.sh -DJvmOption="-Xms4G -Xmx4G" -m local -c ./config/v2.streaming.conf.template
