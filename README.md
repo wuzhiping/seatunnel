@@ -150,7 +150,13 @@ source {
 
     # 关键修改：避免每次从头 snapshot
     startup.mode = "earliest"
-
+    
+    #待验证
+    debezium = {
+      "publication.autocreate.mode":"filtered"
+    }
+    publication.name = "<publication_name -dbz_publication>"
+    #
   }
 }
 
