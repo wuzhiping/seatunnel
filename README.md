@@ -1,4 +1,4 @@
-# seatunnel
+<img width="2152" height="1040" alt="image" src="https://github.com/user-attachments/assets/3a93be2f-5bcc-4986-8fb0-0e0381e15f64" /># seatunnel
 https://seatunnel.apache.org/docs/start-v2/docker/
 
 ./bin/seatunnel.sh -DJvmOption="-Xms4G -Xmx4G" -m local -c ./config/v2.streaming.conf.template
@@ -17,6 +17,13 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 
 ## 以下是启用 PostgreSQL 中的 CDC（变化数据捕获）的步骤：
 * 确保 wal_level 设置为 logical：通过在 postgresql.conf 配置文件中添加 "wal_level = logical" 来修改，重启 PostgreSQL 服务器以使更改生效。 或者，您可以使用 SQL 命令直接修改配置：
+<pre>
+#------------------------------------------------------------------------------
+# WRITE-AHEAD LOG
+#------------------------------------------------------------------------------
+# - Settings -
+wal_level = logical                     # minimal, replica, or logical
+</pre>
 <pre>
 ALTER SYSTEM SET wal_level TO 'logical';
 SELECT pg_reload_conf();
