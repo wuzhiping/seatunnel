@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  seatunnel:
+    image: apache/seatunnel
+    container_name: seatunnel
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      # 核心目录持久化
+      - ./logs:/opt/seatunnel/logs
+      #- ./config:/opt/seatunnel/config
+      #- ./plugins:/opt/seatunnel/plugins
+      - ./temp:/opt/seatunnel/temp
+      # 可选：单文件精准挂载
+      #- ./hazelcast.yaml:/opt/seatunnel/config/hazelcast.yaml:ro
+      #- ./seatunnel.yaml:/opt/seatunnel/config/seatunnel.yaml:ro
+    command: bash -c "./bin/seatunnel-cluster.sh && tail -f /dev/null"
+    stdin_open: true
+    tty: true
