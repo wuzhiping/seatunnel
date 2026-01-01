@@ -39,6 +39,13 @@ SELECT pg_reload_conf();
 ALTER TABLE wiki.page REPLICA IDENTITY FULL;
 </pre>
 
+# REPLICA slot
+<pre>
+ select pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_insert_lsn(),restart_lsn)) 
+       AS wal_delay ,
+       * from pg_catalog.pg_replication_slots ;
+</pre>
+
 # publication 由 DBA 创建 publication，CDC 用户只负责订阅。
 <pre>
 SELECT * FROM pg_publication;
