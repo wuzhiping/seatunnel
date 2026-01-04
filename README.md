@@ -361,6 +361,7 @@ curl -X POST "http://10.17.1.26:15060/submit-job" \
 </pre>
 
 # Doris Sink
+* https://doris.apache.org/zh-CN/docs/4.x/gettingStarted/quick-start/
 <pre>
 show backends;
 
