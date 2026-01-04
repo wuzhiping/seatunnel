@@ -441,3 +441,20 @@ sink {
   }
 }
 </pre>
+* 外部Catalog
+<pre>
+SHOW CATALOGS;
+
+CREATE CATALOG jdbc_mysql_demo PROPERTIES (
+   "type" = "jdbc",
+   "user" = "root",
+   "password" = "root",
+   "jdbc_url" = "jdbc:mysql://10.17.1.22:3306/demo",
+   "driver_url" = "https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar",
+   "driver_class" = "com.mysql.cj.jdbc.Driver"
+);
+
+switch jdbc_mysql_demo;
+
+show databases;
+</pre>
