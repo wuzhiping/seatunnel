@@ -359,3 +359,39 @@ curl -X POST "http://10.17.1.26:15060/submit-job" \
     ]
 }'
 </pre>
+
+# Doris Sink
+<pre>
+show backends;
+
+create database demo;
+
+use demo; 
+
+-- 为当前数据库设置默认副本数为 1（立即生效，无需重启）
+ALTER DATABASE demo SET PROPERTIES ("replication_allocation" = "tag.location.default:1");
+    
+-- 查看数据库的默认副本配置
+SHOW CREATE DATABASE demo;
+-- 查看表的副本数
+SHOW CREATE TABLE mytable;
+-- 查看 Backend 节点状态
+SHOW PROC '/backends';
+    
+sink {
+  Doris {
+    fenodes = "10.17.1.26:8040"
+    username = root
+    password = ""
+    database = "demo"
+    table = "${table_name}_test"
+    sink.label-prefix = "test-cdc"
+    sink.enable-2pc = "true"
+    sink.enable-delete = "true"
+    doris.config {
+      format = "json"
+      read_json_by_line = "true"
+    }
+  }
+}
+</pre>
