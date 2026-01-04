@@ -360,6 +360,51 @@ curl -X POST "http://10.17.1.26:15060/submit-job" \
 }'
 </pre>
 
+# MySQL CDC
+* https://seatunnel.apache.org/zh-CN/docs/2.3.12/connector-v2/source/MySQL-CDC
+* mysql.conf
+<pre>
+# Enable binary replication log and set the prefix, expiration, and log format.
+# The prefix is arbitrary, expiration can be short for integration tests but would
+# be longer on a production system. Row-level info is required for ingest to work.
+# Server ID is required, but this will vary on production systems
+server-id         = 223344
+log_bin           = mysql-bin
+expire_logs_days  = 10
+binlog_format     = row
+# mysql 5.6+ requires binlog_row_image to be set to FULL
+binlog_row_image  = FULL
+
+# optional enable gtid mode
+# mysql 5.6+ requires gtid_mode to be set to ON, but not required by mysql 8.0+
+gtid_mode = on
+enforce_gtid_consistency = on
+
+
+mysql> show variables where variable_name in ('log_bin', 'binlog_format', 'binlog_row_image', 'gtid_mode', 'enforce_gtid_consistency');
++--------------------------+----------------+
+| Variable_name            | Value          |
++--------------------------+----------------+
+| binlog_format            | ROW            |
+| binlog_row_image         | FULL           |
+| enforce_gtid_consistency | ON             |
+| gtid_mode                | ON             |
+| log_bin                  | ON             |
++--------------------------+----------------+    
+</pre>
+<pre>
+source {
+  MySQL-CDC {
+    url = "jdbc:mysql://10.17.1.26:3306/demo"
+    username = "root"
+    password = "root"
+    table-names = ["demo.user"]
+
+    startup.mode = "initial"
+  }
+}
+</pre>
+
 # Doris Sink
 * https://doris.apache.org/zh-CN/docs/4.x/gettingStarted/quick-start/
 <pre>
