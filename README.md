@@ -151,13 +151,13 @@ source {
     # 关键修改：避免每次从头 snapshot
     startup.mode = "earliest"
     
-    # 待验证
+    # 已验证
     # https://seatunnel.apache.org/docs/2.3.12/connector-v2/source/PostgreSQL-CDC
     slot.name = "seatunnel"
     debezium = {
       "publication.autocreate.mode":"filtered"
+      "publication.name" = "dbz_publication"
     }
-    publication.name = "[publication_name -dbz_publication]"
     #
   }
 }
