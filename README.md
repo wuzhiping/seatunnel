@@ -458,3 +458,9 @@ switch jdbc_mysql_demo;
 
 show databases;
 </pre>
+* be jdbc_drivers
+<pre>
+be bash
+/opt/apache-doris/be/jdbc_drivers
+wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar
+</pre>
