@@ -18,7 +18,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 * https://pyflink.readthedocs.io/en/main/getting_started/index.html
 <pre>
   jobmanager:
-    image: shawoo/pyflink:latest
+    image: shawoo/pyflink:2.2.0
     ports:
       - "28081:8081"
     command: jobmanager
@@ -28,7 +28,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         jobmanager.rpc.address: jobmanager
 
   taskmanager:
-    image: shawoo/pyflink:latest
+    image: shawoo/pyflink:2.2.0
     depends_on:
       - jobmanager
     command: taskmanager
@@ -37,9 +37,9 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
-        taskmanager.numberOfTaskSlots: 2
+        taskmanager.numberOfTaskSlots: 10
   sql-client:
-    image: shawoo/pyflink:latest
+    image: shawoo/pyflink:2.2.0
     command: bin/sql-client.sh
     depends_on:
       - jobmanager
