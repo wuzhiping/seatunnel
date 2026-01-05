@@ -11,6 +11,10 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 
 ![sbpb](https://github.com/user-attachments/assets/2bbd8d80-14d9-4edc-864a-f98884443d77)
 
+# Flink
+* https://nightlies.apache.org/flink/flink-docs-master/docs/deployment/resource-providers/standalone/docker/#session-cluster-sql-yaml
+* https://pyflink.readthedocs.io/en/main/getting_started/index.html
+
 # 对于 SeaTunnel Zeta 引擎
 您需要确保 jdbc 驱动 jar 包 已放置在目录 ${SEATUNNEL_HOME}/lib/ 中。
 请下载并将 PostgreSQL 驱动放入 ${SEATUNNEL_HOME}/lib/ 目录。例如：cp postgresql-xxx.jar $SEATUNNEL_HOME/lib/
