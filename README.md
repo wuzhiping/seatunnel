@@ -16,6 +16,40 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 * https://seatunnel.apache.org/zh-CN/docs/2.3.12/other-engine/flink
 * https://nightlies.apache.org/flink/flink-docs-master/docs/deployment/resource-providers/standalone/docker/#session-cluster-sql-yaml
 * https://pyflink.readthedocs.io/en/main/getting_started/index.html
+<pre>
+  jobmanager:
+    image: shawoo/pyflink:latest
+    ports:
+      - "28081:8081"
+    command: jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+
+  taskmanager:
+    image: shawoo/pyflink:latest
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+  sql-client:
+    image: shawoo/pyflink:latest
+    command: bin/sql-client.sh
+    depends_on:
+      - jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        rest.address: jobmanager    
+</pre>
+
 
 # 对于 SeaTunnel Zeta 引擎
 您需要确保 jdbc 驱动 jar 包 已放置在目录 ${SEATUNNEL_HOME}/lib/ 中。
