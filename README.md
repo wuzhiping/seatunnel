@@ -48,6 +48,10 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         rest.address: jobmanager    
+
+
+
+  ./bin/flink run -m 10.17.1.26:28081 -py ./examples/python/datastream/word_count.py
 </pre>
 
 
