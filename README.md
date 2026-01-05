@@ -13,6 +13,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 
 # Flink
 * https://seatunnel.apache.org/zh-CN/docs/2.3.12/start-v2/locally/quick-start-flink/
+* https://seatunnel.apache.org/zh-CN/docs/2.3.12/other-engine/flink
 * https://nightlies.apache.org/flink/flink-docs-master/docs/deployment/resource-providers/standalone/docker/#session-cluster-sql-yaml
 * https://pyflink.readthedocs.io/en/main/getting_started/index.html
 
