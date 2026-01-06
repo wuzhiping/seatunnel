@@ -509,3 +509,26 @@ be bash
 /opt/apache-doris/be/jdbc_drivers
 wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar
 </pre>
+
+
+# MongoDB CDC
+* [https://seatunnel.apache.org/zh-CN/docs/2.3.12/connector-v2/source/MySQL-CDC](https://seatunnel.apache.org/docs/connector-v2/source/MongoDB-CDC)
+* mongod --replSet rs0 --bind_ip_all
+* mongosh --eval "rs.initiate()"
+<pre>
+source {
+  MongoDB-CDC {
+    hosts = "10.17.1.22:27017"
+    database = ["demo"]
+    collection = ["demo.abc"]
+    schema = {
+      table = "demo.abc"
+      fields {
+        "_id" : string,
+        "name" : string,
+        "age" : int
+      }
+    }
+  }
+} 
+</pre>
