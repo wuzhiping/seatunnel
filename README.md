@@ -11,6 +11,9 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 
 ![sbpb](https://github.com/user-attachments/assets/2bbd8d80-14d9-4edc-864a-f98884443d77)
 
+# dataease
+* https://dataease.io/desktop/index.html
+  
 # Flink 2.2.0
 * https://nightlies.apache.org/flink/flink-docs-release-2.2/zh/docs/dev/python/overview/
 * https://seatunnel.apache.org/zh-CN/docs/2.3.12/start-v2/locally/quick-start-flink/
