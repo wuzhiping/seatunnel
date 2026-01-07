@@ -41,7 +41,29 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
-        taskmanager.numberOfTaskSlots: 10
+        taskmanager.numberOfTaskSlots: 5
+        # 关键：增加总内存到至少 8GB
+        taskmanager.memory.process.size: 8g
+        # 您的堆外内存配置
+        taskmanager.memory.task.off-heap.size: 4g
+        # 可选：优化其他内存
+        taskmanager.memory.managed.size: 512m
+        taskmanager.memory.network.fraction: 0.05
+
+  pyflink:
+    image: shawoo/pyflink:2.2.0_dev
+    depends_on:
+      - jobmanager
+    ports:
+      - "28082:8888"
+    command: bash -c "cd examples/python && jupyter lab --allow-root --ip=0.0.0.0 --NotebookApp.token='12345678'"
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+
   sql-client:
     image: shawoo/pyflink:2.2.0
     command: bin/sql-client.sh
