@@ -21,6 +21,38 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 * https://nightlies.apache.org/flink/flink-docs-master/docs/deployment/resource-providers/standalone/docker/#session-cluster-sql-yaml
 * https://pyflink.readthedocs.io/en/main/getting_started/index.html
 <pre>
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 29092:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    #volumes:
+    #  - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+
+  zookeeper:
+    image: zookeeper:3.9.2
+    hostname: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_TICK_TIME: 2000
+    #volumes:
+    #  - ./zk-data:/data
+    #  - ./zk-logs:/logs
+
+  zkui:
+    image: tobilg/zookeeper-webui
+    ports:
+      - "22181:8080"
+    environment:
+      ZK_DEFAULT_NODE: "zookeeper:2181/"
+      USER: admin
+      PASSWORD: admin
+    depends_on:
+      - zookeeper
+  
   jobmanager:
     image: shawoo/pyflink:2.2.0
     ports:
