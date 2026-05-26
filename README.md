@@ -100,7 +100,8 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         taskmanager.numberOfTaskSlots: 2
 
   sql-client:
-    image: shawoo/pyflink:2.2.0
+    image: shawoo/pyflink:2.2.1
+    shm_size: "2g"
     command: bin/sql-client.sh
     depends_on:
       - jobmanager
