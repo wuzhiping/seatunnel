@@ -14,7 +14,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 # dataease
 * https://dataease.io/desktop/index.html
   
-# Flink 2.2.0
+# Flink 2.2.1
 * https://nightlies.apache.org/flink/flink-docs-release-2.2/zh/docs/dev/python/overview/
 * https://seatunnel.apache.org/zh-CN/docs/2.3.12/start-v2/locally/quick-start-flink/
 * https://seatunnel.apache.org/zh-CN/docs/2.3.12/other-engine/flink
@@ -54,7 +54,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
       - zookeeper
   
   jobmanager:
-    image: shawoo/pyflink:2.2.0
+    image: shawoo/pyflink:2.2.1
     ports:
       - "28081:8081"
     command: jobmanager
@@ -64,7 +64,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         jobmanager.rpc.address: jobmanager
 
   taskmanager:
-    image: shawoo/pyflink:2.2.0
+    image: shawoo/pyflink:2.2.1
     depends_on:
       - jobmanager
     command: taskmanager
@@ -83,7 +83,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         taskmanager.memory.network.fraction: 0.05
 
   pyflink:
-    image: shawoo/pyflink:2.2.0_dev
+    image: shawoo/pyflink:2.2.1
     depends_on:
       - jobmanager
     ports:
