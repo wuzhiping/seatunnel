@@ -1,4 +1,4 @@
-FROM apache/flink:latest
+FROM apache/flink:2.2.1
 
 USER root
 # install python3 and pip3
@@ -9,5 +9,7 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # install PyFlink
 
 RUN python -m pip install apache-flink uuid7 temporalio --break-system-packages
+RUN python -m pip install apache-beam[gcp]  --break-system-packages
+RUN python -m pip install jupyterlab  --break-system-packages
 
 USER flink
