@@ -55,6 +55,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
   
   jobmanager:
     image: shawoo/pyflink:2.2.1
+    shm_size: "1g"
     ports:
       - "28081:8081"
     command: jobmanager
@@ -65,6 +66,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 
   taskmanager:
     image: shawoo/pyflink:2.2.1
+    shm_size: "2g"
     depends_on:
       - jobmanager
     command: taskmanager
@@ -84,6 +86,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
 
   pyflink:
     image: shawoo/pyflink:2.2.1
+    shm_size: "2g"
     depends_on:
       - jobmanager
     ports:
