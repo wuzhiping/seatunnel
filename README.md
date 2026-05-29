@@ -54,7 +54,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
       - zookeeper
   
   jobmanager:
-    image: shawoo/pyflink:2.2.1
+    image: shawoo/pyflink:1.20.aio
     shm_size: "1g"
     ports:
       - "28081:8081"
@@ -65,7 +65,7 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         jobmanager.rpc.address: jobmanager
 
   taskmanager:
-    image: shawoo/pyflink:2.2.1
+    image: shawoo/pyflink:1.20.aio
     shm_size: "2g"
     depends_on:
       - jobmanager
@@ -85,10 +85,13 @@ mv /opt/seatunnel/lib/opengauss-jdbc-5.1.0.jar /opt/seatunnel/lib/opengauss-jdbc
         taskmanager.memory.network.fraction: 0.05
 
   pyflink:
-    image: shawoo/pyflink:2.2.1
+    image: shawoo/pyflink:1.20.aio
     shm_size: "2g"
     depends_on:
       - jobmanager
+    volumes:
+      - ./pi:/opt/flink/.pi
+      #- ./src:/opt/flink/examples/python/src  
     ports:
       - "28082:8888"
     command: bash -c "cd examples/python && jupyter lab --allow-root --ip=0.0.0.0 --NotebookApp.token='12345678'"
