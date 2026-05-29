@@ -1,4 +1,4 @@
-FROM apache/flink:2.2.1
+FROM apache/flink:1.20
 
 USER root
 # install python3 and pip3
@@ -8,8 +8,22 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # install PyFlink
 
-RUN python -m pip install apache-flink uuid7 temporalio --break-system-packages
-RUN python -m pip install apache-beam[gcp]  --break-system-packages
-RUN python -m pip install jupyterlab  --break-system-packages
+RUN python -m pip install apache-flink uuid7 temporalio # --break-system-packages
+RUN python -m pip install apache-beam[gcp] # --break-system-packages
+RUN python -m pip install jupyterlab # --break-system-packages
+
+COPY ./jar/*.* /opt/flink/lib/
+
+COPY ./src /opt/flink/examples/python/src
+
+RUN apt-get update && apt-get install -y curl ca-certificates gnupg
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+
+RUN apt-get install -y nodejs
+
+RUN node -v && npm -v
+
+RUN curl -fsSL https://pi.dev/install.sh | sh
 
 USER flink
