@@ -1,0 +1,20 @@
+name: dvc-cicd-test-action
+
+on:
+  pre-commit:
+    branches:
+      - main
+      - master
+      
+hooks:
+  - id: prevent_user_columns
+    type: webhook
+    description: Ensure no user_* columns under public/
+    properties:
+      url: "https://abc.feg.com.tw/oauth2/dvc"
+      timeout: 1m30s
+      query_params:
+          disallow: ["user_", "private_"]
+          prefix: public/
+      headers:
+          secret_header: "{% raw %}{{{% endraw %} ENV.MY_SECRET {% raw %}}}{% endraw %}"
