@@ -26,4 +26,7 @@ RUN node -v && npm -v
 
 RUN curl -fsSL https://pi.dev/install.sh | sh
 
+#DVC
+RUN python -m pip install lakefs lakefs-spec
+
 USER flink
